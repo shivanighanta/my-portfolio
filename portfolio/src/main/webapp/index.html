@@ -1,18 +1,113 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+
+    <title>Shivani Ghanta</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Aclonica:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Adamina:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+
     <script src="script.js"></script>
+
   </head>
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-default top">
+          <div class="container text-center">
+              <div class="navbar-header top">
+                  <div data-toggle="collapse" data-target="#myNavbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                  </div>
+              </div>
+
+    <div id="navbar" class="navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="resume.pdf">Resume</a></li>
+            <li><a href="mailto:shivani.ghanta@gmail.com">Email Me</a></li>
+
+        </ul>
     </div>
+
+</div>
+      </nav>
+
+      <!-- Title Content & Bio -->
+      <div class="bitmoji-top">
+              <div class="container">
+                  <div class="row">
+                      <div class="about">
+                          <div id="photos">
+                              <center><img id = "bitmoji" src="images/bitmoji.PNG" class="img-responsive" height="420" width="420"/></center>
+
+                           </div>
+                       </div>
+                       
+                       <center><div class="about">
+                           <div class="bio">
+                               <h1>Shivani Ghanta</h1>
+                               <h3>Aspiring Software Engineer</h3>
+                               <p>I’m an incoming junior majoring in Computer Science at UIUC. I'm currently an Engineering STEP Intern at Google.</p>
+					</div>
+				</div></center>
+			</div>
+		</div>
+	</div>
+
+
+      <!-- Courses Taken -->
+      <div class="info-row">
+		<div class="container">
+			<div class="row">
+				<div class="about">
+					<center>
+					<div class="clearfix"></div>
+					<h2>Courses Taken</h2>
+					<p class="struct">
+						Data Structures and Algorithms (CS 225)<br>
+						Computer Architecture (CS 233)<br>
+						Discrete Structures (CS 173)<br>
+						Numerical Methods (CS 357)<br>
+						Intro to Computer Science (CS 125) <br>
+				</div></center>
+				<div class="about">
+					<center><img class="img-responsive" src="images/study.png" height="300" width="300"/></center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+      <!-- Hobbies -->
+      <div class="info-row info-row1">
+		<div class="container">
+			<div class="row">
+				<center><div class="about">
+					<div class="clearfix"></div>
+					<h2>Hobbies</h2>
+					<p class="struct">Painting/Drawing<br>
+						Playing Badminton<br>
+						Reading<br>
+					Sleeping</p>
+				</div>
+				<div class="about">
+					<center><img class="img-responsive" src="images/playground.png" height="300" width="300"/></center>
+				</div></center>
+			</div>
+		</div>
+	</div>
+
+      
   </body>
 </html>
