@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="bootstrap.css">
 
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Aclonica:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Adamina:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 
     <script src="script.js"></script>
 
@@ -35,7 +32,7 @@
     <div id="navbar" class="navbar-collapse">
         <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
-            <li><a href="resume.pdf">Resume</a></li>
+            <li><a href="images/resume.pdf">Resume</a></li>
             <li><a href="mailto:shivani.ghanta@gmail.com">Email Me</a></li>
 
         </ul>
@@ -43,25 +40,28 @@
 
 </div>
       </nav>
-
       <!-- Title Content & Bio -->
-      <div class="bitmoji-top">
-              <div class="container">
-                  <div class="row">
-                      <div class="about">
-                          <div id="photos">
-                              <center><img id = "bitmoji" src="images/bitmoji.PNG" class="img-responsive" height="420" width="420"/></center>
 
-                           </div>
-                       </div>
-                       
-                       <center><div class="about">
-                           <div class="bio">
-                               <h1>Shivani Ghanta</h1>
-                               <h3>Aspiring Software Engineer</h3>
-                               <p>I’m an incoming junior majoring in Computer Science at UIUC. I'm currently an Engineering STEP Intern at Google.</p>
+      <div class="bitmoji-top">
+		<div class="container">
+			<div class="row">
+				<div class="about">
+					<div class="bio">
+						<h1>Shivani Ghanta</h1>
+                        <h3>Aspiring Software Engineer</h3>
+                        <hr class="top-bio">
+						<br>
+                        <p>
+                        I’m an incoming junior majoring in Computer Science at the University of Illinois at Urbana-Champaign.<br>
+                        I'm currently an Engineering STEP Intern at Google.<br>
+                         </p>
 					</div>
-				</div></center>
+				</div>
+				<div class="about">
+					<div id="image">
+						<img src="images/bitmoji.PNG" height="430" width="430"/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -72,18 +72,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="about">
-					<center>
-					<div class="clearfix"></div>
-					<h2>Courses Taken</h2>
+                    <center>
+					<h2>Courses</h2>
 					<p class="struct">
 						Data Structures and Algorithms (CS 225)<br>
 						Computer Architecture (CS 233)<br>
+                        Software Programming Studio (CS 126)<br>
 						Discrete Structures (CS 173)<br>
 						Numerical Methods (CS 357)<br>
-						Intro to Computer Science (CS 125) <br>
 				</div></center>
-				<div class="about">
-					<center><img class="img-responsive" src="images/study.png" height="300" width="300"/></center>
+				<div class="image">
+					<center><img class="img-responsive" src="images/study.png" height="250" width="250"/></center>
 				</div>
 			</div>
 		</div>
@@ -93,21 +92,40 @@
       <div class="info-row info-row1">
 		<div class="container">
 			<div class="row">
-				<center><div class="about">
-					<div class="clearfix"></div>
-					<h2>Hobbies</h2>
-					<p class="struct">Painting/Drawing<br>
-						Playing Badminton<br>
-						Reading<br>
-					Sleeping</p>
-				</div>
 				<div class="about">
-					<center><img class="img-responsive" src="images/playground.png" height="300" width="300"/></center>
+                    <center>
+					<h2>Hobbies</h2>
+					<p class="struct">Making DIY Projects<br>
+						Reading Self-Improvement Books<br>
+						Oil Painting<br>
+					Sipping Herbal Tea</p>
 				</div></center>
+				<div class="image">
+					<center><img class="img-responsive" src="images/image.png" height="250" width="250"/></center>
+				</div>
 			</div>
 		</div>
 	</div>
 
-      
+    <!-- Courses Taken -->
+      <div class="info-row">
+		<div class="container">
+			<div class="row">
+				<div class="about">
+					<center>
+					<h2>My Favorites</h2>
+					<p class="struct">
+						Long Drives<br>
+						Avacados<br>
+						Lavendar<br>
+						Sweater Weather<br>
+				</div></center>
+				<div class="image">
+					<center><img class="img-responsive" src="images/passion.png" height="250" width="250"/></center>
+				</div>
+			</div>
+		</div>
+	</div>
+ 
   </body>
 </html>
