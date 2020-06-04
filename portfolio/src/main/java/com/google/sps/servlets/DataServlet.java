@@ -56,4 +56,5 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
 
   }
+  
 }

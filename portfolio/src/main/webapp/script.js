@@ -1,8 +1,4 @@
-/**
- * Adds a random greeting to the page.
- */
-
- // Copyright 2019 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,4 +70,5 @@ async function getRandomQuoteUsingAsyncAwait() {
   const response = await fetch('/data');
   const quote = await response.text();
   document.getElementById('quote-container').innerText = quote;
+  
 }
