@@ -21,6 +21,16 @@ body {
   font-weight: 400
 }
 
+/* ul.no-bullets {
+list-style-type: none;
+ text-align: center;
+  color: #000;
+  font-size: 20px;
+  line-height: 32px
+    font-family: Avenir
+
+} */
+
 p {
   font-weight: 400;
   font-family: Avenir

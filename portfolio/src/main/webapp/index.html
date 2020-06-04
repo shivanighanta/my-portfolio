@@ -14,10 +14,6 @@
       <div class="container text-center">
         <div class="navbar-header top">
           <div data-toggle="collapse" data-target="#myNavbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
           </div>
         </div>
         <div id="navbar" class="navbar-collapse">
@@ -29,6 +25,7 @@
         </div>
       </div>
     </nav>
+
     <!-- Title Content & Bio -->
     <div class="bitmoji-top">
       <div class="container">
@@ -36,7 +33,7 @@
           <div class="about">
             <div class="bio">
               <h1>Shivani Ghanta</h1>
-              <h3>Aspiring Software Engineer</h3>
+              <h2>Aspiring Software Engineer</h2>
               <hr class="top-bio">
               <br>
               <p>
@@ -54,6 +51,7 @@
         </div>
       </div>
     </div>
+
     <!-- Courses Taken -->
     <div class="info-row">
       <div class="container">
@@ -75,6 +73,7 @@
         </div>
       </div>
     </div>
+
     <!-- Hobbies -->
     <div class="info-row info-row1">
       <div class="container">
@@ -96,6 +95,7 @@
         </div>
       </div>
     </div>
+
     <!-- Courses Taken -->
     <div class="info-row">
       <div class="container">
@@ -108,6 +108,15 @@
                 Avacodos<br>
                 Lavendar<br>
                 Sweater Weather<br>
+            </p>
+            <!-- <p>
+            <ul class="no-bullets">
+                <li>Long Drives</li>
+                <li>Avacodos</li>
+                <li>Sweater Weather</li>
+            </ul>
+            </p> -->
+
           </div>
           </center>
           <div class="image">
@@ -117,16 +126,16 @@
       </div>
     </div>
 
-    <div id="message">
-        <center>
+    <!-- Generate Random Quote -->
+    <div class="info-row info-row1">
+            <center>
+              <p class="struct">
+                 <body onload="getRandomQuoteUsingArrowFunctions()">
+                     <div id="quote-container"></div>
+              </p>
+          </div>
+          </center>
 
-      <h1>Message</h1>
-      <p>Click here to see a message:</p>
-      <button onclick="getRandomQuote()">Fetch a message!</button>
-      <div id="quote-container"></div>
-    </div>
-    </center>
-    
 
   </body>
 </html>
