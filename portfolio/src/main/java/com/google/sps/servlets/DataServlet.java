@@ -16,7 +16,12 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.Arrays;
 import java.util.ArrayList;
+import com.google.sps.data.Task;
 import java.util.List;
 import java.io.IOException;
 import com.google.gson.Gson;
@@ -29,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private List<String> quotes;
+  Gson gson = new Gson();
 
       @Override
     public void init() {
@@ -53,23 +59,34 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Convert the array list to JSON
     String quote = quotes.get((int) (Math.random() * quotes.size()));
-    Gson gson = new Gson();
     String json = gson.toJson(quote);
     response.setContentType("application/json;");
     response.getWriter().println(json);
+
+    // Load entities from Datastore
+    Query query = new Query("Task").addSort("firstname", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Task> tasks = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String firstName = (String) entity.getProperty("firstname");
+      String lastName = (String) entity.getProperty("lastname");
+      String country = (String) entity.getProperty("country");
+      String subject = (String) entity.getProperty("subject");
+
+      Task task = new Task(id, firstName, lastName, country, subject);
+      tasks.add(task);
+    }
+    response.setContentType("application/json;");
+   response.getWriter().println(gson.toJson(tasks));
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    // String text = getParameter(request, "text-input", "");
 
-    // response.setContentType("text/html;");
-    // response.getWriter().println(text);
-    // Redirect back to the HTML page.
-    // response.sendRedirect("/index.html");
-
-
-    // Data Store
+    // Store entities to Datastore
     String firstName = request.getParameter("firstname");
     String lastName = request.getParameter("lastname");
     String country = request.getParameter("country");
@@ -87,6 +104,7 @@ public class DataServlet extends HttpServlet {
     
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
+
   }
 
   /**

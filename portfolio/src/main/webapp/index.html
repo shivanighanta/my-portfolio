@@ -126,34 +126,24 @@
     </div>
     </center>
 
-    <!-- <center>
-    <h1>Comments</h1>
-
-    <form action="/data" method="POST">
-
-      <p>Enter comments here:</p>
-      <textarea name="text-input">example comment</textarea>
-      <br/><br/>
-
-      <input type="submit" />
-    </form>
-    <center> -->
-        
 <!-- Comment Box-->
 <div class="container_comment">
-  <form action="/data" method="POST">
+
+    <body onload="loadTasks()">
+
+  <form method="POST" action="/data" >
       <center>
     <label for="fname">First Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+    <input type="text" id="fname" name="firstname" placeholder="Your first name..">
 
     <label for="lname">Last Name</label>
     <input type="text" id="lname" name="lastname" placeholder="Your last name..">
 
     <label for="country">Country</label>
     <select id="country" name="country">
+        <option value="usa">USA</option>
+        <option value="canada">Canada</option>
       <option value="australia">Australia</option>
-      <option value="canada">Canada</option>
-      <option value="usa">USA</option>
     </select>
 
     <label for="subject">Subject</label>
@@ -163,6 +153,8 @@
 
     </center>
   </form>
+      <ul id="task-list"></ul>
+
 </div>
 
 
