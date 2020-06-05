@@ -13,6 +13,9 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -58,10 +61,30 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
+    // String text = getParameter(request, "text-input", "");
 
-    response.setContentType("text/html;");
-    response.getWriter().println(text);
+    // response.setContentType("text/html;");
+    // response.getWriter().println(text);
+    // Redirect back to the HTML page.
+    // response.sendRedirect("/index.html");
+
+
+    // Data Store
+    String firstName = request.getParameter("firstname");
+    String lastName = request.getParameter("lastname");
+    String country = request.getParameter("country");
+    String subject = request.getParameter("subject");
+
+
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("firstname", firstName);
+    taskEntity.setProperty("lastname", lastName);
+    taskEntity.setProperty("country", country);
+    taskEntity.setProperty("subject", subject);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+    
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
   }
