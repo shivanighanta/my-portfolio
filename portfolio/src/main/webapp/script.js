@@ -82,7 +82,7 @@ function loadTasks() {
   });
 }
 
-/** Creates an element that represents a task, including its delete button. */
+/** Creates an element that represents a task */
 function createTaskElement(task) {
   const taskElement = document.createElement('li');
   taskElement.className = 'task';
@@ -90,23 +90,6 @@ function createTaskElement(task) {
   const titleElement = document.createElement('span');
   titleElement.innerText = task.title;
 
-  const deleteButtonElement = document.createElement('button');
-  deleteButtonElement.innerText = 'Delete';
-  deleteButtonElement.addEventListener('click', () => {
-    deleteTask(task);
-
-    // Remove the task from the DOM.
-    taskElement.remove();
-  });
-
   taskElement.appendChild(titleElement);
-  taskElement.appendChild(deleteButtonElement);
   return taskElement;
-}
-
-/** Tells the server to delete the task. */
-function deleteTask(task) {
-  const params = new URLSearchParams();
-  params.append('id', task.id);
-  fetch('/delete-task', {method: 'POST', body: params});
 }

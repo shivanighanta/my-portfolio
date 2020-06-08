@@ -57,13 +57,13 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Convert the array list to JSON
+    // Get Random Quote and Print to Home Page
     String quote = quotes.get((int) (Math.random() * quotes.size()));
     String json = gson.toJson(quote);
     response.setContentType("application/json;");
     response.getWriter().println(json);
 
-    // Load entities from Datastore
+    // Load comments from Datastore and print to Home Page
     Query query = new Query("Task").addSort("firstname", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -80,8 +80,10 @@ public class DataServlet extends HttpServlet {
       Task task = new Task(id, firstName, lastName, country, subject);
       tasks.add(task);
     }
+
     response.setContentType("application/json;");
-   response.getWriter().println(gson.toJson(tasks));
+    response.getWriter().println(gson.toJson(tasks));
+
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
