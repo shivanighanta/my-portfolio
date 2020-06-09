@@ -21,7 +21,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.Arrays;
 import java.util.ArrayList;
-import com.google.sps.data.Task;
+import com.google.sps.data.Comment;
 import java.util.List;
 import java.io.IOException;
 import com.google.gson.Gson;
@@ -36,6 +36,10 @@ import com.google.common.collect.ImmutableList;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final Gson gson = new Gson();
+  private static final String FIRST_NAME = "firstname";
+  private static final String LAST_NAME = "lastname";
+  private static final String COUNTRY = "country";
+  private static final String SUBJECT = "subject";
   private final static ImmutableList<String> QUOTES = ImmutableList.of
     ("A ship in port is safe, but that is not what ships are for. "
             + "Sail out to sea and do new things. - Grace Hopper",
@@ -58,25 +62,24 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
 
     // Load comments from Datastore and print to Home Page
-    Query query = new Query("Task").addSort("firstname", SortDirection.DESCENDING);
+    Query query = new Query("Comment").addSort("firstname", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<String> tasks = new ArrayList<>();
-    List<Task> listOfTasks = new ArrayList<>();
+    List<String> Comments = new ArrayList<>();
+    List<Comment> listOfComments = new ArrayList<>();
 
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
-      String firstName = (String) entity.getProperty("firstname");
-      String lastName = (String) entity.getProperty("lastname");
-      String country = (String) entity.getProperty("country");
-      String subject = (String) entity.getProperty("subject");
+      String firstName = (String) entity.getProperty(FIRST_NAME);
+      String lastName = (String) entity.getProperty(LAST_NAME);
+      String country = (String) entity.getProperty(COUNTRY);
+      String subject = (String) entity.getProperty(SUBJECT);
 
-    Task task = new Task(id, firstName, lastName, country, subject);
-    listOfTasks.add(task);
-
-    String info = subject + " - " + firstName + " " + lastName + ", " + country; 
+    Comment Comment = new Comment(id, firstName, lastName, country, subject);
+    listOfComments.add(Comment);
+    String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
     response.getWriter().println(gson.toJson(info));
     }
     response.setContentType("application/json;");
@@ -85,20 +88,19 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     // Store entities to Datastore
-    String firstName = request.getParameter("firstname");
-    String lastName = request.getParameter("lastname");
-    String country = request.getParameter("country");
-    String subject = request.getParameter("subject");
+    String firstName = request.getParameter(FIRST_NAME);
+    String lastName = request.getParameter(LAST_NAME);
+    String country = request.getParameter(COUNTRY);
+    String subject = request.getParameter(SUBJECT);
 
-
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("firstname", firstName);
-    taskEntity.setProperty("lastname", lastName);
-    taskEntity.setProperty("country", country);
-    taskEntity.setProperty("subject", subject);
+    Entity CommentEntity = new Entity("Comment");
+    CommentEntity.setProperty("firstname", firstName);
+    CommentEntity.setProperty("lastname", lastName);
+    CommentEntity.setProperty("country", country);
+    CommentEntity.setProperty("subject", subject);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
+    datastore.put(CommentEntity);
     
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");

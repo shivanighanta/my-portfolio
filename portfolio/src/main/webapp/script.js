@@ -47,15 +47,3 @@ function addQuoteToDom(quote) {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
-
-/** Creates an element that represents a task */
-function createTaskElement(task) {
-  const taskElement = document.createElement('li');
-  taskElement.className = 'task';
-
-  const titleElement = document.createElement('span');
-  titleElement.innerText = task.title;
-
-  taskElement.appendChild(titleElement);
-  return taskElement;
-}

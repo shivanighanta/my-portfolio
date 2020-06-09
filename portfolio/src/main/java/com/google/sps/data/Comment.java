@@ -14,8 +14,8 @@
 
 package com.google.sps.data;
 
-/** A person who comments on the page. */
-public final class Task {
+/** A person who Comments on the page. */
+public final class Comment {
 
   private final long id;
   private final String firstName;
@@ -23,7 +23,7 @@ public final class Task {
   private final String country;
   private final String subject;
 
-  public Task(long id, String firstName, String lastName, String country, String subject) {
+  public Comment(long id, String firstName, String lastName, String country, String subject) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
