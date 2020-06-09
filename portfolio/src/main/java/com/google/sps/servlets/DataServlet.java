@@ -35,7 +35,7 @@ import com.google.common.collect.ImmutableList;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final Gson gson = new Gson();
+  private static final Gson GSON = new Gson();
   private static final String FIRST_NAME = "firstname";
   private static final String LAST_NAME = "lastname";
   private static final String COUNTRY = "country";
@@ -57,7 +57,7 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Convert the array list to JSON
     String quote = QUOTES.get((int) (Math.random() * QUOTES.size()));
-    String json = gson.toJson(quote);
+    String json = GSON.toJson(quote);
     response.setContentType("application/json;");
     response.getWriter().println(json);
 
@@ -80,7 +80,7 @@ public class DataServlet extends HttpServlet {
     Comment Comment = new Comment(id, firstName, lastName, country, subject);
     listOfComments.add(Comment);
     String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
-    response.getWriter().println(gson.toJson(info));
+    response.getWriter().println(GSON.toJson(info));
     }
     response.setContentType("application/json;");
   }
@@ -94,10 +94,10 @@ public class DataServlet extends HttpServlet {
     String subject = request.getParameter(SUBJECT);
 
     Entity CommentEntity = new Entity("Comment");
-    CommentEntity.setProperty("firstname", firstName);
-    CommentEntity.setProperty("lastname", lastName);
-    CommentEntity.setProperty("country", country);
-    CommentEntity.setProperty("subject", subject);
+    CommentEntity.setProperty(FIRST_NAME, firstName);
+    CommentEntity.setProperty(LAST_NAME, lastName);
+    CommentEntity.setProperty(COUNTRY, country);
+    CommentEntity.setProperty(SUBJECT, subject);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(CommentEntity);
