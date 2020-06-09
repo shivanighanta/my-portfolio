@@ -44,7 +44,6 @@ function handleResponse(response) {
 /** Adds a random quote to the DOM. */
 function addQuoteToDom(quote) {
   console.log('Adding quote to dom: ' + quote);
-
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
@@ -93,5 +92,3 @@ function createTaskElement(task) {
   taskElement.appendChild(titleElement);
   return taskElement;
 }
-
-
