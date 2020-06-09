@@ -35,7 +35,6 @@ import com.google.common.collect.ImmutableList;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   private static final Gson gson = new Gson();
   private final static ImmutableList<String> QUOTES = ImmutableList.of
     ("A ship in port is safe, but that is not what ships are for. "
