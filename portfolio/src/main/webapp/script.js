@@ -48,39 +48,6 @@ function addQuoteToDom(quote) {
   quoteContainer.innerText = quote;
 }
 
-/**
- * The above code is organized to show each individual step, but we can use an
- * ES6 feature called arrow functions to shorten the code. This function
- * combines all of the above code into a single Promise chain. You can use
- * whichever syntax makes the most sense to you.
- */
-function getRandomQuoteUsingArrowFunctions() {
-  fetch('/data').then(response => response.json()).then((quote) => {
-    document.getElementById('quote-container').innerText = quote;
-  });
-}
-
-/**
- * Another way to use fetch is by using the async and await keywords. This
- * allows you to use the return values directly instead of going through
- * Promises.
- */
-async function getRandomQuoteUsingAsyncAwait() {
-  const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('quote-container').innerText = quote;
-}
-
-/** Fetches tasks from the server and adds them to the DOM. */
-function loadTasks() {
-  fetch('/data').then(response => response.text()).then((tasks) => {
-    const taskListElement = document.getElementById('task-list');
-    tasks.forEach((task) => {
-      taskListElement.appendChild(createTaskElement(task));
-    })
-  });
-}
-
 /** Creates an element that represents a task */
 function createTaskElement(task) {
   const taskElement = document.createElement('li');
