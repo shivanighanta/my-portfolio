@@ -69,7 +69,9 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<Task> tasks = new ArrayList<>();
+    List<String> tasks = new ArrayList<>();
+    List<Task> listOfTasks = new ArrayList<>();
+
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
       String firstName = (String) entity.getProperty("firstname");
@@ -77,12 +79,20 @@ public class DataServlet extends HttpServlet {
       String country = (String) entity.getProperty("country");
       String subject = (String) entity.getProperty("subject");
 
-      Task task = new Task(id, firstName, lastName, country, subject);
-      tasks.add(task);
+    Task task = new Task(id, firstName, lastName, country, subject);
+    listOfTasks.add(task);
+
+    String info = subject + " - " + firstName + " " + lastName + ", " + country; 
+    response.getWriter().println(gson.toJson(info));
+    
+
+
+
+     // tasks.add(firstName + " " + lastName + ", from " + country + "\n" + "subject: " + subject);
     }
 
     response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(tasks));
+    //response.getWriter().println(gson.toJson(tasks));
 
   }
 
