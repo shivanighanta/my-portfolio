@@ -62,11 +62,13 @@ p {
   padding-bottom: 10;
 }
 
-.top-bio {
+.top-bio::after {
   line-height: 32px;
   text-align: center;
   padding-top: 0%;
   padding-bottom: 0;
+  content: "\a";
+  white-space: pre;
 }
 
 .about {
