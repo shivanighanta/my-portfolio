@@ -44,30 +44,6 @@ function handleResponse(response) {
 /** Adds a random quote to the DOM. */
 function addQuoteToDom(quote) {
   console.log('Adding quote to dom: ' + quote);
-
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
-}
-
-/**
- * The above code is organized to show each individual step, but we can use an
- * ES6 feature called arrow functions to shorten the code. This function
- * combines all of the above code into a single Promise chain. You can use
- * whichever syntax makes the most sense to you.
- */
-function getRandomQuoteUsingArrowFunctions() {
-  fetch('/data').then(response => response.json()).then((quote) => {
-    document.getElementById('quote-container').innerText = quote;
-  });
-}
-
-/**
- * Another way to use fetch is by using the async and await keywords. This
- * allows you to use the return values directly instead of going through
- * Promises.
- */
-async function getRandomQuoteUsingAsyncAwait() {
-  const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('quote-container').innerText = quote;
 }

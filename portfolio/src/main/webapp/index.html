@@ -83,7 +83,7 @@
                 Making DIY Projects<br>
                 Reading Self-Improvement Books<br>
                 Oil Painting<br>
-                Sipping Herbal Tea
+                Sipping Herbal Tea<br>
               </p>
           </div>
           </center>
@@ -119,10 +119,30 @@
     <div class="info-row info-row1">
       <center>
         <p class="struct">
-          <body onload="getRandomQuoteUsingArrowFunctions()">
+          <body onload="getRandomQuote()">
         <div id="quote-container"></div>
         </p>
     </div>
     </center>
+    <!-- Comment Box-->
+    <div class="container_comment">
+    <form method="POST" action="/data" >
+    <center>
+    <label for="fname">First Name</label>
+      <input type="text" id="fname" name="firstname" placeholder="Your first name..">
+    <label for="lname">Last Name</label>
+      <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="USA">USA</option>
+      <option value="Canada">Canada</option>
+      <option value="Australia">Australia</option>
+    </select>
+    <label for="subject">Subject</label>
+      <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+    <input type="submit" value="Submit">
+    </center>
+    </form>
+    </div>
   </body>
 </html>

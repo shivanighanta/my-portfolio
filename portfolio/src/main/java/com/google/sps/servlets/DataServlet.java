@@ -13,7 +13,15 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.Arrays;
 import java.util.ArrayList;
+import com.google.sps.data.Comment;
 import java.util.List;
 import java.io.IOException;
 import com.google.gson.Gson;
@@ -27,7 +35,11 @@ import com.google.common.collect.ImmutableList;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final Gson gson = new Gson();
+  private static final Gson GSON = new Gson();
+  private static final String FIRST_NAME = "firstname";
+  private static final String LAST_NAME = "lastname";
+  private static final String COUNTRY = "country";
+  private static final String SUBJECT = "subject";
   private final static ImmutableList<String> QUOTES = ImmutableList.of
     ("A ship in port is safe, but that is not what ships are for. "
             + "Sail out to sea and do new things. - Grace Hopper",
@@ -45,8 +57,65 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Convert the array list to JSON
     String quote = QUOTES.get((int) (Math.random() * QUOTES.size()));
-    String json = gson.toJson(quote);
+    String json = GSON.toJson(quote);
     response.setContentType("application/json;");
     response.getWriter().println(json);
+
+    // Load comments from Datastore and print to Home Page
+    Query query = new Query("Comment").addSort("firstname", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<String> Comments = new ArrayList<>();
+    List<Comment> listOfComments = new ArrayList<>();
+
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String firstName = (String) entity.getProperty(FIRST_NAME);
+      String lastName = (String) entity.getProperty(LAST_NAME);
+      String country = (String) entity.getProperty(COUNTRY);
+      String subject = (String) entity.getProperty(SUBJECT);
+
+    Comment Comment = new Comment(id, firstName, lastName, country, subject);
+    listOfComments.add(Comment);
+    String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
+    response.getWriter().println(GSON.toJson(info));
+    }
+    response.setContentType("application/json;");
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Store entities to Datastore
+    String firstName = request.getParameter(FIRST_NAME);
+    String lastName = request.getParameter(LAST_NAME);
+    String country = request.getParameter(COUNTRY);
+    String subject = request.getParameter(SUBJECT);
+
+    Entity CommentEntity = new Entity("Comment");
+    CommentEntity.setProperty(FIRST_NAME, firstName);
+    CommentEntity.setProperty(LAST_NAME, lastName);
+    CommentEntity.setProperty(COUNTRY, country);
+    CommentEntity.setProperty(SUBJECT, subject);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(CommentEntity);
+    
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
