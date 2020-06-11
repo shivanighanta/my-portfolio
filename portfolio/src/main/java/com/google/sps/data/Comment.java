@@ -16,7 +16,6 @@ package com.google.sps.data;
 
 /** A person who Comments on the page. */
 public final class Comment {
-
   private final long id;
   private final String firstName;
   private final String lastName;

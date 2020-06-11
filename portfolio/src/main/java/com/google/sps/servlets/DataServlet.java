@@ -19,18 +19,17 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import java.util.Arrays;
-import java.util.ArrayList;
-import com.google.sps.data.Comment;
-import java.util.List;
-import java.io.IOException;
+import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.common.collect.ImmutableList;
-
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -40,18 +39,18 @@ public class DataServlet extends HttpServlet {
   private static final String LAST_NAME = "lastname";
   private static final String COUNTRY = "country";
   private static final String SUBJECT = "subject";
-  private final static ImmutableList<String> QUOTES = ImmutableList.of
-    ("A ship in port is safe, but that is not what ships are for. "
-            + "Sail out to sea and do new things. - Grace Hopper",
-             "They told me computers could only do arithmetic. - Grace Hopper", 
-             "It is much easier to apologise than it is to get permission. - Grace Hopper",
-            "If you can't give me poetry, can't you give me poetical science - Ada Lovelace",
-            "I am in a charming state of confusion. - Ada Lovelace",
-            "The Analytical Engine weaves algebraic patterns, "
-            + "just as the Jacquard loom weaves flowers and leaves. - Ada Lovelace",
-            "Sometimes it is the people no one can imagine anything of "
-            + "who do the things no one can imagine. - Alan Turing",
-            "Those who can imagine anything, can create the impossible. - Alan Turing");
+  private final static ImmutableList<String> QUOTES =
+      ImmutableList.of("A ship in port is safe, but that is not what ships are for. "
+              + "Sail out to sea and do new things. - Grace Hopper",
+          "They told me computers could only do arithmetic. - Grace Hopper",
+          "It is much easier to apologise than it is to get permission. - Grace Hopper",
+          "If you can't give me poetry, can't you give me poetical science - Ada Lovelace",
+          "I am in a charming state of confusion. - Ada Lovelace",
+          "The Analytical Engine weaves algebraic patterns, "
+              + "just as the Jacquard loom weaves flowers and leaves. - Ada Lovelace",
+          "Sometimes it is the people no one can imagine anything of "
+              + "who do the things no one can imagine. - Alan Turing",
+          "Those who can imagine anything, can create the impossible. - Alan Turing");
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -77,16 +76,15 @@ public class DataServlet extends HttpServlet {
       String country = (String) entity.getProperty(COUNTRY);
       String subject = (String) entity.getProperty(SUBJECT);
 
-    Comment Comment = new Comment(id, firstName, lastName, country, subject);
-    listOfComments.add(Comment);
-    String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
-    response.getWriter().println(GSON.toJson(info));
+      Comment Comment = new Comment(id, firstName, lastName, country, subject);
+      listOfComments.add(Comment);
+      String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
+      response.getWriter().println(GSON.toJson(info));
     }
     response.setContentType("application/json;");
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     // Store entities to Datastore
     String firstName = request.getParameter(FIRST_NAME);
     String lastName = request.getParameter(LAST_NAME);
@@ -101,10 +99,9 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(CommentEntity);
-    
+
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
-
   }
 
   /**

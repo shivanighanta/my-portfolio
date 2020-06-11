@@ -1,7 +1,7 @@
 body,
 html {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 h1,
@@ -9,27 +9,31 @@ h2,
 h3 h4,
 h5,
 h6 {
-  font-weight: 300
+  font-weight: 300;
 }
 
 body {
-  font-weight: 600
+  font-weight: 600;
+}
+.map_format {
+  padding-top: 300px;
+  padding-bottom: 300px;
 }
 
 .struct {
   font-size: 20px;
-  font-weight: 400
+  font-weight: 400;
 }
 
 p {
   font-weight: 400;
-  font-family: Avenir
+  font-family: Avenir;
 }
 
 .top {
   padding-top: 5%;
   padding: 8px 0;
-  z-index: 10
+  z-index: 10;
 }
 
 .navbar .navbar-header,
@@ -38,22 +42,22 @@ p {
   display: inline-block;
   vertical-align: top;
   padding-left: 0;
-  padding-right: 0
+  padding-right: 0;
 }
 
 .navbar-nav {
   float: none;
-  color: #fff
+  color: #fff;
 }
 
-.navbar-default .navbar-nav>li>a {
-  color: #fff
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
 }
 
 .bitmoji-top {
   text-align: center;
   color: #f8f8f8;
-  background: #ec6f6d
+  background: #ec6f6d;
 }
 
 .bio {
@@ -67,7 +71,7 @@ p {
   text-align: center;
   padding-top: 0%;
   padding-bottom: 0;
-  content: "\a";
+  content: '\a';
   white-space: pre;
 }
 
@@ -82,81 +86,82 @@ p {
   position: relative;
 }
 
-.bio>h1 {
+.bio > h1 {
   text-align: center;
   margin: 0;
   font-size: 6em;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
-  font-weight: 700
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  font-weight: 700;
 }
 
-.bio>h3 {
+.bio > h3 {
   text-align: center;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   font-weight: 400;
-  margin-top: 10px
+  margin-top: 10px;
 }
 
-.bio>p {
+.bio > p {
   text-align: center;
   font-size: 20px;
   line-height: 22px;
-  color: #fff
+  color: #fff;
 }
 
 .info-row {
   text-align: center;
   background: #fff;
-  padding: 15px 0
+  padding: 15px 0;
 }
 
 .info-row1 {
   text-align: center;
-  background: #ec6f6d
+  background: #ec6f6d;
 }
 
 .info-row h2 {
   text-align: center;
   color: #000;
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .info-row1 h2 {
   text-align: center;
   color: #fff;
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .info-row p {
   text-align: center;
   color: #000;
   font-size: 20px;
-  line-height: 32px
-  
+  line-height: 32px;
 }
 
 .info-row1 p {
   text-align: center;
   color: #fff;
   font-size: 20px;
-  line-height: 32px
+  line-height: 32px;
 }
 
 /* Style for Comment Box */
 
-input[type=text], select, textarea {
-  width: 100%; 
-  padding: 12px; 
+input[type='text'],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
   border: 1px solid #ccc; /* Gray border */
   border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; 
-  margin-top: 6px; 
-  margin-bottom: 16px; 
-  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
 /* Style the submit button with background color */
-input[type=submit] {
+input[type='submit'] {
   background-color: #ec6f6d;
   color: white;
   padding: 12px 20px;
@@ -166,7 +171,7 @@ input[type=submit] {
 }
 
 /* When moving the mouse over the submit button, add a darker pink color */
-input[type=submit]:hover {
+input[type='submit']:hover {
   background-color: #cf5c5a;
 }
 

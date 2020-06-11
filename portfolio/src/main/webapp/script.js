@@ -47,3 +47,45 @@ function addQuoteToDom(quote) {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
+
+/** Creates a map and adds it to the page. */
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 40.113926, lng: -88.224927}, zoom: 16});
+
+  addLandmark(
+      map, /*lat=*/ 40.113926, /*lng=*/ -88.224927,
+      /*title=*/ 'Siebel',
+      /*description=*/
+      '<img src=\'images/siebel.png\'><div>Seiebel Center for Computer Science: Where all the CS classes are held and my second home (also has the best bagels)');
+
+  addLandmark(
+      map, /*lat=*/ 40.109331, /*lng=*/ -88.227223,
+      /*title=*/ 'Historical Illini Union',
+      /*description=*/
+      '<img src=\'images/union.jpg\'><div>This historical building is located at the center of campus</div>');
+
+  addLandmark(
+      map, /*lat=*/ 40.106125, /*lng=*/ -88.227289,
+      /*title=*/ 'Foellinger Auditorium',
+      /*description=*/
+      '<img src=\'images/foellinger.jpg\'><div>Biggest lecture hall on campus, also where famous people give speeches (Caught a glimpse of Obama once)</div>');
+
+  addLandmark(
+      map, /*lat=*/ 40.111838, /*lng=*/ -88.230963,
+      /*title=*/ 'Chipotle',
+      /*description=*/
+      '<img src=\'images/chipotle.jpg\'><div>Love of my life. nuff said.</div>');
+}
+
+/** Adds a marker that shows an info window when clicked. */
+function addLandmark(map, lat, lng, title, description) {
+  const marker = new google.maps.Marker(
+      {position: {lat: lat, lng: lng}, map: map, title: title});
+
+  const infoWindow = new google.maps.InfoWindow({content: description});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+}
