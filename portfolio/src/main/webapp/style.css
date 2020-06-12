@@ -167,7 +167,7 @@ textarea {
 }
 
 /* Style the submit button with background color */
-input[type='submit'] {
+button[type='submit'] {
   background-color: #ec6f6d;
   color: white;
   padding: 12px 20px;
@@ -177,7 +177,7 @@ input[type='submit'] {
 }
 
 /* When moving the mouse over the submit button, add a darker pink color */
-input[type='submit']:hover {
+button[type='submit']:hover {
   background-color: #cf5c5a;
 }
 
@@ -187,4 +187,8 @@ input[type='submit']:hover {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+}
+
+#subject {
+  height: 200px;
 }
