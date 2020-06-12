@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
     <meta charset="UTF-8" />
     <title>Shivani Ghanta</title>
@@ -47,7 +47,7 @@
           </div>
           <div class="about">
             <div id="image-bitmoji">
-              <img src="images/bitmoji.PNG" height="430" width="430" />
+              <img src="images/bitmoji.PNG" alt="Bitmoji" height="430" width="430" />
             </div>
           </div>
         </div>
@@ -58,107 +58,84 @@
       <div class="container">
         <div class="row">
           <div class="about">
-            <center>
-              <h2>Courses</h2>
-              <p class="struct">
-                Data Structures and Algorithms (CS 225)<br />
-                Computer Architecture (CS 233)<br />
-                Discrete Structures (CS 173)<br />
-                Numerical Methods (CS 357)<br />
-                Intro to Computer Science (CS 125) <br />
-                </div>
-              </p>
-            </center>
-            <div class="image">
-              <center><img class="img-responsive" src="images/courses.png" height="250" width="250" /></center>
-            </div>
+            <h2>Courses</h2>
+            <p class="struct">
+              Data Structures and Algorithms (CS 225)<br />
+              Computer Architecture (CS 233)<br />
+              Discrete Structures (CS 173)<br />
+              Numerical Methods (CS 357)<br />
+              Intro to Computer Science (CS 125) <br />
+            </p>
+          </div>
+          <div class="image">
+            <img src="images/courses.png" alt="Courses" height="250" width="250" />
           </div>
         </div>
       </div>
-      <!-- Hobbies -->
-      <div class="info-row info-row1">
-        <div class="container">
-          <div class="row">
-            <div class="about">
-              <center>
-                <h2>Hobbies</h2>
-                <p class="struct">
-                  Making DIY Projects<br />
-                  Reading Self-Improvement Books<br />
-                  Oil Painting<br />
-                  Sipping Herbal Tea<br />
-                </p>
-                </div>
-              </center>
-              <div class="image">
-                <center><img class="img-responsive" src="images/hobbies.png" height="250" width="250" /></center>
-              </div>
-            </div>
+    </div>
+    <!-- Hobbies -->
+    <div class="info-row info-row1">
+      <div class="container">
+        <div class="row">
+          <div class="about">
+            <h2>Hobbies</h2>
+            <p class="struct">
+              Making DIY Projects<br />
+              Reading Self-Improvement Books<br />
+              Oil Painting<br />
+              Sipping Herbal Tea<br />
+            </p>
           </div>
-        </div>
-        <!-- Courses Taken -->
-        <div class="info-row">
-          <div class="container">
-            <div class="row">
-              <div class="about">
-                <center>
-                  <h2>My Favorites</h2>
-                  <p class="struct">
-                    Long Drives<br />
-                    Avocados<br />
-                    Lavendar<br />
-                    Sweater Weather<br />
-                  </p>
-                  </div>
-                </center>
-                <div class="image">
-                  <center><img class="img-responsive" src="images/favorites.png" height="250" width="250" /></center>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Map -->
-          <div id="map" class="map_format"></div>
-          <!-- Generate Random Quote -->
-          <div class="info-row info-row1">
-            <center>
-              <p class="struct">
-                <body onload="getRandomQuote()">
-                  <div id="quote-container"></div>
-                  </p>
-                  </div>
-                  </center>
-                  <!-- Comment Box-->
-                  <div class="container_comment">
-                    <form method="POST" action="/data">
-                      <center>
-                        <label for="fname">First Name</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Your first name.." />
-                        <label for="lname">Last Name</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Your last name.." />
-                        <label for="country">Country</label>
-                        <select id="country" name="country">
-                          <option value="USA">USA</option>
-                          <option value="Canada">Canada</option>
-                          <option value="Australia">Australia</option>
-                        </select>
-                        <label for="subject">Subject</label>
-                        <textarea
-                          id="subject"
-                          name="subject"
-                          placeholder="Write something.."
-                          style="height: 200px;"
-                        ></textarea>
-                        <input type="submit" value="Submit" />
-                      </center>
-                    </form>
-                  </div>
-                </body>
-              </p>
-            </center>
+          <div class="image">
+            <img src="images/hobbies.png" alt="Hobbies" height="250" width="250" />
           </div>
         </div>
       </div>
+    </div>
+    <!-- Courses Taken -->
+    <div class="info-row">
+      <div class="container">
+        <div class="row">
+          <div class="about">
+            <h2>My Favorites</h2>
+            <p class="struct">
+              Long Drives<br />
+              Avocados<br />
+              Lavendar<br />
+              Sweater Weather<br />
+            </p>
+          </div>
+          <div class="image">
+            <img src="images/favorites.png" alt="Favorites" height="250" width="250" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Map -->
+    <div id="map" class="map_format"></div>
+    <!-- Generate Random Quote -->
+    <div class="info-row info-row1">
+      <body onload="getRandomQuote()">
+        <div id="quote-container"></div>
+      </body>
+    </div>
+    <!-- Comment Box-->
+    <div class="container_comment">
+      <form method="POST" action="/data">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your first name.." />
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name.." />
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="Australia">Australia</option>
+        </select>
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height: 200px;"></textarea>
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   </body>
 </html>

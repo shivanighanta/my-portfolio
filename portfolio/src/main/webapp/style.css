@@ -82,8 +82,14 @@ p {
 .image {
   padding-top: 5%;
   padding-bottom: 5%;
-  text-align: center;
-  position: relative;
+  vertical-align: middle;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .bio > h1 {
@@ -177,6 +183,7 @@ input[type='submit']:hover {
 
 /* Add a background color and some padding around the form */
 .container_comment {
+  text-align: center;
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
