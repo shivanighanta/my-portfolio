@@ -1,0 +1,30 @@
+{
+  "name": "step",
+  "version": "1.0.0",
+  "description": "This repo contains the projects you'll work on for the first half of STEP. This work is based on the [Google Software Product Sprint](https://g.co/softwareproductsprint) program.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivanighanta/my-portfolio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivanighanta/my-portfolio/issues"
+  },
+  "homepage": "https://github.com/shivanighanta/my-portfolio#readme",
+  "dependencies": {
+    "clang-format": "^1.4.0",
+    "css-validator": "^0.9.0",
+    "eslint": "^7.2.0",
+    "eslint-config-google": "^0.14.0",
+    "html-validate": "^2.23.0",
+    "prettier": "^2.0.5"
+  }
+}
