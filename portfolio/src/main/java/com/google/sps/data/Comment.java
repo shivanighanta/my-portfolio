@@ -21,12 +21,15 @@ public final class Comment {
   private final String lastName;
   private final String country;
   private final String subject;
+  private final double score;
 
-  public Comment(long id, String firstName, String lastName, String country, String subject) {
+  public Comment(
+      long id, String firstName, String lastName, String country, String subject, double score) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.country = country;
     this.subject = subject;
+    this.score = score;
   }
 }
