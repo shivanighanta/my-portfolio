@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,8 +85,8 @@ public class DataServlet extends HttpServlet {
 
       Comment Comment = new Comment(id, firstName, lastName, country, subject, score);
       listOfComments.add(Comment);
-      String info =
-          String.format("%s - %s %s, %s, %s", subject, firstName, lastName, country, score);
+      String info = String.format(
+          "%s - %s %s, %s, %s", subject, firstName, lastName, country, "Sentiment score: " + score);
       response.getWriter().println(GSON.toJson(info));
     }
     response.setContentType("application/json;");
@@ -100,7 +101,6 @@ public class DataServlet extends HttpServlet {
 
     // Get sentiment score
     double score = getSentimentScore(subject);
-    System.out.println(score);
 
     Entity CommentEntity = new Entity("Comment");
     CommentEntity.setProperty(FIRST_NAME, firstName);
@@ -122,7 +122,7 @@ public class DataServlet extends HttpServlet {
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    double score = sentiment.getScore();
+    double score = Math.round(sentiment.getScore() * 100.0) / 100.0;
     languageService.close();
     return score;
   }
