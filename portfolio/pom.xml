@@ -33,8 +33,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>11.0.2</version>
+      <version>29.0-jre</version>
     </dependency>
+    <dependency>
+  <groupId>com.google.cloud</groupId>
+  <artifactId>google-cloud-language</artifactId>
+  <version>1.100.0</version>
+</dependency>
   </dependencies>
   <build>
     <plugins>
