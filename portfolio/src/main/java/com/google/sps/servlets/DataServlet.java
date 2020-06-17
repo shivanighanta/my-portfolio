@@ -19,10 +19,14 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +43,8 @@ public class DataServlet extends HttpServlet {
   private static final String LAST_NAME = "lastname";
   private static final String COUNTRY = "country";
   private static final String SUBJECT = "subject";
+  private static final String SCORE = "score";
+
   private final static ImmutableList<String> QUOTES =
       ImmutableList.of("A ship in port is safe, but that is not what ships are for. "
               + "Sail out to sea and do new things. - Grace Hopper",
@@ -75,10 +81,12 @@ public class DataServlet extends HttpServlet {
       String lastName = (String) entity.getProperty(LAST_NAME);
       String country = (String) entity.getProperty(COUNTRY);
       String subject = (String) entity.getProperty(SUBJECT);
+      double score = (double) entity.getProperty(SCORE);
 
-      Comment Comment = new Comment(id, firstName, lastName, country, subject);
+      Comment Comment = new Comment(id, firstName, lastName, country, subject, score);
       listOfComments.add(Comment);
-      String info = String.format("%s - %s %s, %s", subject, firstName, lastName, country);
+      String info = String.format(
+          "%s - %s %s, %s, %s", subject, firstName, lastName, country, "Sentiment score: " + score);
       response.getWriter().println(GSON.toJson(info));
     }
     response.setContentType("application/json;");
@@ -91,17 +99,32 @@ public class DataServlet extends HttpServlet {
     String country = request.getParameter(COUNTRY);
     String subject = request.getParameter(SUBJECT);
 
+    // Get sentiment score
+    double score = getSentimentScore(subject);
+
     Entity CommentEntity = new Entity("Comment");
     CommentEntity.setProperty(FIRST_NAME, firstName);
     CommentEntity.setProperty(LAST_NAME, lastName);
     CommentEntity.setProperty(COUNTRY, country);
     CommentEntity.setProperty(SUBJECT, subject);
+    CommentEntity.setProperty(SCORE, score);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(CommentEntity);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
+  }
+
+  /** Run sentiment analysis and return sentiment score */
+  private double getSentimentScore(String message) throws IOException {
+    Document doc =
+        Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    double score = Math.round(sentiment.getScore() * 100.0) / 100.0;
+    languageService.close();
+    return score;
   }
 
   /**
