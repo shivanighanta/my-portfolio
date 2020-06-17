@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final Gson GSON = new Gson();
+  private static final LanguageServiceClient LANGUAGE_SERVICE = LanguageServiceClient.create();
   private static final String FIRST_NAME = "firstname";
   private static final String LAST_NAME = "lastname";
   private static final String COUNTRY = "country";
@@ -120,10 +121,9 @@ public class DataServlet extends HttpServlet {
   private double getSentimentScore(String message) throws IOException {
     Document doc =
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    Sentiment sentiment = LANGUAGE_SERVICE.analyzeSentiment(doc).getDocumentSentiment();
     double score = Math.round(sentiment.getScore() * 100.0) / 100.0;
-    languageService.close();
+    LANGUAGE_SERVICE.close();
     return score;
   }
 
