@@ -22,25 +22,20 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
       Collection<String> attendees = request.getAttendees();
       int duration = (int) request.getDuration();
-
       // if there are no attendees return whole day
       if (attendees.isEmpty()) {
           return Arrays.asList(TimeRange.WHOLE_DAY);
       }
-
       // if duration is too long return no options
       if (duration > TimeRange.WHOLE_DAY.duration()) {
           return Arrays.asList();
       }
-
       // find all the unique conflicting time ranges 
         Set<TimeRange> timesNotPossible = new HashSet<TimeRange>();
-        
         for (Event event : events) {
             for (String attendee : attendees) {
                 Set<String> eventAttendees = event.getAttendees();
@@ -50,29 +45,22 @@ public final class FindMeetingQuery {
                 }
             }
         } 
-
         List<TimeRange> timesPossible = new ArrayList<TimeRange>();
         List<TimeRange> timesNotPossibleList = new ArrayList<TimeRange>(timesNotPossible);
-
         Collections.sort(timesNotPossibleList, TimeRange.ORDER_BY_START);  
-
         int previousEndTime = TimeRange.START_OF_DAY;
-
         // find possible times
         for (TimeRange time : timesNotPossibleList) {
-
             if (previousEndTime < time.start()) {
                 TimeRange possibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, time.start(), false);
                 if (possibleTimeSlot.duration() >= duration) {
                     timesPossible.add(possibleTimeSlot);
                 }
             }
-
             if (previousEndTime < time.end()) {
                 previousEndTime = time.end();
             }
         }
-
         // add last time slot of the day
         if (previousEndTime < TimeRange.END_OF_DAY) {
             TimeRange lastPossibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, TimeRange.END_OF_DAY, true);
@@ -80,7 +68,6 @@ public final class FindMeetingQuery {
                 timesPossible.add(lastPossibleTimeSlot);
             }
         }
-
     Collections.sort(timesPossible, TimeRange.ORDER_BY_START);  
     return timesPossible;
   }
