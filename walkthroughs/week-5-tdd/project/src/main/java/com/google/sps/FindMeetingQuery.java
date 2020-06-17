@@ -39,21 +39,49 @@ public final class FindMeetingQuery {
       }
 
       // find all the unique conflicting time ranges 
-      // go through all the events
-        // add each event "when" to conflictingTimes list
-        Set<TimeRange> conflictTimes = new HashSet<TimeRange>();
+        Set<TimeRange> timesNotPossible = new HashSet<TimeRange>();
         
-        for (Event event : Events) {
-            if (attendees.contains(event.getAttendees())) {
-
+        for (Event event : events) {
+            for (String attendee : attendees) {
+                Set<String> eventAttendees = event.getAttendees();
+                TimeRange time = event.getWhen();
+                if (eventAttendees.contains(attendee)) {
+                    timesNotPossible.add(time);
+                }
             }
         } 
 
+        List<TimeRange> timesPossible = new ArrayList<TimeRange>();
+        List<TimeRange> timesNotPossibleList = new ArrayList<TimeRange>(timesNotPossible);
 
+        Collections.sort(timesNotPossibleList, TimeRange.ORDER_BY_START);  
 
+        int previousEndTime = TimeRange.START_OF_DAY;
 
+        // find possible times
+        for (TimeRange time : timesNotPossibleList) {
 
+            if (previousEndTime < time.start()) {
+                TimeRange possibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, time.start(), false);
+                if (possibleTimeSlot.duration() >= duration) {
+                    timesPossible.add(possibleTimeSlot);
+                }
+            }
 
-      return Arrays.asList(TimeRange.WHOLE_DAY);
+            if (previousEndTime < time.end()) {
+                previousEndTime = time.end();
+            }
+        }
+
+        // add last time slot of the day
+        if (previousEndTime < TimeRange.END_OF_DAY) {
+            TimeRange lastPossibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, TimeRange.END_OF_DAY, true);
+            if (lastPossibleTimeSlot.duration() >= duration) {
+                timesPossible.add(lastPossibleTimeSlot);
+            }
+        }
+
+    Collections.sort(timesPossible, TimeRange.ORDER_BY_START);  
+    return timesPossible;
   }
 }
