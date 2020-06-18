@@ -14,99 +14,101 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Set;
 
 public final class FindMeetingQuery {
-    
-    /**
-    * Returns all the possible time slots that attendees can attend
-    *
-    * If one or more time slots exists so that both mandatory and optional attendees can attend,
-    * return those time slots. Otherwise, return the time slots that fit just the mandatory attendees.
-    */
-    public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+  /**
+   * Returns all the possible time slots that attendees can attend
+   *
+   * If one or more time slots exists so that both mandatory and optional attendees can attend,
+   * return those time slots. Otherwise, return the time slots that fit just the mandatory
+   * attendees.
+   */
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    List<String> mandatoryAttendees = new ArrayList<>(request.getAttendees());
+    List<String> optionalAttendees = new ArrayList<>(request.getOptionalAttendees());
+    int duration = (int) request.getDuration();
 
-      List<String> attendees = new ArrayList<>(request.getAttendees());
-      List<String> optionalAttendees = new ArrayList<>(request.getOptionalAttendees());
-      int duration = (int) request.getDuration();
+    if (mandatoryAttendees.size() == 0) {
+      return getTimesPossible(events, request, optionalAttendees, duration);
+    }
 
-      if (attendees.size() == 0) {
-        return getTimesPossible(events, request, optionalAttendees, duration);
-      }
+    if (optionalAttendees.size() == 0) {
+      return getTimesPossible(events, request, mandatoryAttendees, duration);
+    }
 
-      if (optionalAttendees.size() == 0) {
-          return getTimesPossible(events, request, attendees, duration);
-      }
+    Collection<TimeRange> timesPossibleMandatoryAttendees =
+        getTimesPossible(events, request, mandatoryAttendees, duration);
+    mandatoryAttendees.addAll(optionalAttendees);
+    Collection<TimeRange> timesPossibleOptionalAttendees =
+        getTimesPossible(events, request, mandatoryAttendees, duration);
 
-      Collection<TimeRange> timesPossibleMandatoryAttendees = getTimesPossible(events, request, attendees, duration);
-      attendees.addAll(optionalAttendees);
-      Collection<TimeRange> timesPossibleOptionalAttendees = getTimesPossible(events, request, attendees, duration);
+    if (timesPossibleOptionalAttendees.isEmpty()) {
+      return timesPossibleMandatoryAttendees;
+    }
 
-      if (timesPossibleOptionalAttendees.isEmpty()) {
-          return timesPossibleMandatoryAttendees;
-      }
-
-      return timesPossibleOptionalAttendees;
+    return timesPossibleOptionalAttendees;
   }
 
   /**
-  * Returns all the possible time slots that the given attendees can attend with the given duration
-  */
-  public Collection<TimeRange> getTimesPossible(Collection<Event> events, MeetingRequest request, Collection<String> attendees, int duration) {
-      
-      // if there are no attendees return whole day
-      if (attendees.isEmpty()) {
-          return Arrays.asList(TimeRange.WHOLE_DAY);
-      }
-      // if duration is too long return no options
-      if (duration > TimeRange.WHOLE_DAY.duration()) {
-          return Arrays.asList();
-      }
+   * Returns all the possible time slots that the given attendees can attend with the given duration
+   */
+  public Collection<TimeRange> getTimesPossible(Collection<Event> events, MeetingRequest request,
+      Collection<String> attendees, int duration) {
+    // if there are no attendees return whole day
+    if (attendees.isEmpty()) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+    // if duration is too long return no options
+    if (duration > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
 
-      // find all the unique conflicting time ranges 
-        Set<TimeRange> timesNotPossible = new HashSet<TimeRange>();
-        for (Event event : events) {
-            for (String attendee : attendees) {
-                Set<String> eventAttendees = event.getAttendees();
-                TimeRange time = event.getWhen();
-                if (eventAttendees.contains(attendee)) {
-                    timesNotPossible.add(time);
-                }
-            }
-        } 
-
-        List<TimeRange> timesPossible = new ArrayList<TimeRange>();
-        List<TimeRange> timesNotPossibleList = new ArrayList<TimeRange>(timesNotPossible);
-
-        Collections.sort(timesNotPossibleList, TimeRange.ORDER_BY_START);  
-        int previousEndTime = TimeRange.START_OF_DAY;
-
-        // find possible times
-        for (TimeRange time : timesNotPossibleList) {
-            if (previousEndTime < time.start()) {
-                TimeRange possibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, time.start(), false);
-                if (possibleTimeSlot.duration() >= duration) {
-                    timesPossible.add(possibleTimeSlot);
-                }
-            }
-            if (previousEndTime < time.end()) {
-                previousEndTime = time.end();
-            }
+    // find all the unique conflicting time ranges
+    Set<TimeRange> timesNotPossible = new HashSet<TimeRange>();
+    for (Event event : events) {
+      for (String attendee : attendees) {
+        Set<String> eventAttendees = event.getAttendees();
+        TimeRange time = event.getWhen();
+        if (eventAttendees.contains(attendee)) {
+          timesNotPossible.add(time);
         }
+      }
+    }
 
-        // add last time slot of the day
-        if (previousEndTime < TimeRange.END_OF_DAY) {
-            TimeRange lastPossibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, TimeRange.END_OF_DAY, true);
-            if (lastPossibleTimeSlot.duration() >= duration) {
-                timesPossible.add(lastPossibleTimeSlot);
-            }
+    List<TimeRange> timesPossible = new ArrayList<TimeRange>();
+    List<TimeRange> timesNotPossibleList = new ArrayList<TimeRange>(timesNotPossible);
+
+    Collections.sort(timesNotPossibleList, TimeRange.ORDER_BY_START);
+    int previousEndTime = TimeRange.START_OF_DAY;
+
+    // find possible times
+    for (TimeRange time : timesNotPossibleList) {
+      if (previousEndTime < time.start()) {
+        TimeRange possibleTimeSlot = TimeRange.fromStartEnd(previousEndTime, time.start(), false);
+        if (possibleTimeSlot.duration() >= duration) {
+          timesPossible.add(possibleTimeSlot);
         }
+      }
+      if (previousEndTime < time.end()) {
+        previousEndTime = time.end();
+      }
+    }
+
+    // add last time slot of the day
+    if (previousEndTime < TimeRange.END_OF_DAY) {
+      TimeRange lastPossibleTimeSlot =
+          TimeRange.fromStartEnd(previousEndTime, TimeRange.END_OF_DAY, true);
+      if (lastPossibleTimeSlot.duration() >= duration) {
+        timesPossible.add(lastPossibleTimeSlot);
+      }
+    }
 
     Collections.sort(timesPossible, TimeRange.ORDER_BY_START);
     return timesPossible;
